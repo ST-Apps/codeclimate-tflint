@@ -20,8 +20,8 @@ type TFLintConfiguration struct {
 	Var          []TFLintConfigurationVariable `json:"var"`
 	Module       bool                          `json:"module,omitempty"`
 	NoModule     bool                          `json:"no_module,omitempty"`
-	Chdir		 string						   `json:"chdir,omitempty"`
-	Recursive	 bool						   `json:"recursive,omitempty"`
+	Chdir        string                        `json:"chdir,omitempty"`
+	Recursive    bool                          `json:"recursive,omitempty"`
 	Filter       string                        `json:"filter,omitempty"`
 }
 
