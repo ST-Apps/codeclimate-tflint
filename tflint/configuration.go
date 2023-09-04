@@ -19,6 +19,10 @@ type TFLintConfiguration struct {
 	VarFile      string                        `json:"var_file,omitempty"`
 	Var          []TFLintConfigurationVariable `json:"var"`
 	Module       bool                          `json:"module,omitempty"`
+	NoModule     bool                          `json:"no_module,omitempty"`
+	Chdir        string                        `json:"chdir,omitempty"`
+	Recursive    bool                          `json:"recursive,omitempty"`
+	Filter       string                        `json:"filter,omitempty"`
 }
 
 type TFLintConfigurationVariable struct {
@@ -87,6 +91,26 @@ func ToCLIArguments(configuration TFLintConfiguration) []string {
 	if configuration.Module {
 		log.Printf("[tflint/configuration.go/ToCLIArguments] Setting --module=%v\n", configuration.Module)
 		args = append(args, "--module")
+	}
+
+	if configuration.NoModule {
+		log.Printf("[tflint/configuration.go/ToCLIArguments] Setting --no-module=%v\n", configuration.NoModule)
+		args = append(args, "--no-module")
+	}
+
+	if configuration.Chdir != "" {
+		log.Printf("[tflint/configuration.go/ToCLIArguments] Setting --chdir=%v\n", configuration.Chdir)
+		args = append(args, fmt.Sprintf("--chdir=%v", configuration.Chdir))
+	}
+
+	if configuration.Recursive {
+		log.Printf("[tflint/configuration.go/ToCLIArguments] Setting --recursive=%v\n", configuration.Recursive)
+		args = append(args, "--recursive")
+	}
+
+	if configuration.Filter != "" {
+		log.Printf("[tflint/configuration.go/ToCLIArguments] Setting --filter=%v\n", configuration.Filter)
+		args = append(args, fmt.Sprintf("--filter=%v", configuration.Filter))
 	}
 
 	log.Println("[tflint/configuration.go/ToCLIArguments] Finished extracting arguments from TFLint configuration")
